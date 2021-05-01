@@ -144,7 +144,7 @@ def save_checkpoint(model, epoch, optimizer, best_acc):
     torch.save(state, 'model_best_checkpoint.pth.tar')
 
 # Plot charts
-def plot(train_values, val_values, n_epochs, title, train_label, val_label, y_label):
+def plot(train_values, val_values, n_epochs, title, train_label, val_label, y_label, img_name):
     epochs = range(1, n_epochs+1)
     plt.plot(epochs, train_values, 'g', label=train_label)
     if (val_values):
@@ -153,7 +153,14 @@ def plot(train_values, val_values, n_epochs, title, train_label, val_label, y_la
     plt.xlabel('Epochs')
     plt.ylabel(y_label)
     plt.legend()
+
+    # save the png
+    figure = plt.gcf()
+    figure.set_size_inches(8, 8)
+    plt.savefig(img_name, dpi = 100)
+
     plt.show()
+    
 
 #   ---------------------------------
 
@@ -214,13 +221,13 @@ def main():
 
     # set loss function and optimizer
     loss_fn = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(resnet50.parameters(), lr=0.005, momentum=0.9, weight_decay=0.003)
+    optimizer = optim.SGD(resnet50.parameters(), lr=0.001, momentum=0.9, weight_decay=0.003)
 
-    epochs = 40
+    epochs = 50
 
     train_NN(resnet50, train_loader, val_loader, loss_fn, optimizer, epochs)
-    plot(train_loss_values, val_loss_values, epochs, 'Training and Validation Loss', 'Training loss', 'Validation loss', 'Loss')
-    plot(train_acc_values, val_acc_values, epochs, 'Training and Validation Accuracy', 'Training accuracy', 'Validation accuracy', 'Accuracy')
+    plot(train_loss_values, val_loss_values, epochs, 'Training and Validation Loss', 'Training loss', 'Validation loss', 'Loss', 'Loss.png')
+    plot(train_acc_values, val_acc_values, epochs, 'learning rate = 0.001', 'Training accuracy', 'Validation accuracy', 'Accuracy', 'Accuracy.png')
 
 
 if __name__ == "__main__":
