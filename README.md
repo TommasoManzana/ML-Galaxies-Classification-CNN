@@ -1,11 +1,13 @@
 # Galaxies classification using CNN
 Machine Learning project for the 2020/21 A.A. exam
 
-## Issues :red_circle:
+## Notes :notebook:
 - I haven't yet figured out how to plot the validation loss.
-- Model overfits slightly, lowering the learning rate produced an *85.09%* success rate.
+- Best accuracy so far: *84.60%*.
 - Testing different batches' size.
-- Currently implementing a [scheduler](https://pytorch.org/docs/stable/optim.html) on the optimizer in order to reduce the lr once model is in a plateau.
+- Implemented a [scheduler](https://pytorch.org/docs/stable/_modules/torch/optim/lr_scheduler.html#CosineAnnealingLR) on the optimizer.
+- Implemented WeightedRandomSampler in order to balance the classes.
+- Working on the stratification of the data split.
 
 ## Charts :chart_with_upwards_trend:
 ### Loss & Accuracy
